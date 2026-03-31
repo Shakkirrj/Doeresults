@@ -302,8 +302,59 @@
       .footer-top { grid-template-columns: 1fr; }
       .footer h4 { font-size: 21px; }
       .footer p, .footer a { font-size: 14px; }
-      .result-body { grid-template-columns: 1fr; }
-      .left { border-right: none; border-bottom: 1px solid #efefef; }
+      .result-overlay {
+        margin-top: 10px;
+        border-color: #b9dfe5;
+        background: #f3f3f3;
+      }
+      .result-head {
+        height: 30px;
+        background: #f3f3f3;
+        border-bottom: 1px solid #e1e1e1;
+      }
+      .result-head h3 {
+        font-size: 11px;
+        max-width: calc(100% - 24px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .close-btn { right: 6px; top: 6px; font-size: 12px; }
+      .result-body {
+        grid-template-columns: 1fr;
+        background: #fff;
+      }
+      .left, .right {
+        border-right: none;
+        padding: 10px 12px;
+      }
+      .left { border-bottom: 1px solid #ededed; }
+      .row {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 10px;
+        font-size: 11px;
+        text-align: left;
+      }
+      .lbl { width: 46%; font-weight: 600; color: #333; }
+      .val { width: 54%; font-weight: 500; color: #111; text-align: left; }
+      .subject {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        text-align: left;
+      }
+      .subject-name::before { margin-right: 5px; }
+      .subject-grade {
+        min-width: 18px;
+        font-size: 10px;
+        background: #ececec;
+      }
     }
     @media (min-width: 1280px) {
       .panel { margin-left: 46px; margin-right: 46px; }
