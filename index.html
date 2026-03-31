@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exam Results - Department of Examinations, Sri Lanka</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&family=Noto+Sans+Tamil:wght@400;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, Helvetica, sans-serif; background: #fff; color: #111; }
+
+    .site-wrap { max-width: 1260px; margin: 0 auto; border: 1px solid #d5d5d5; }
+
+    .header {
+      border-bottom: 1px solid #d8d8d8;
+      overflow: hidden;
+      background: #fff;
+      line-height: 0;
+    }
+    .header-banner {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav {
+      height: 34px;
+      background: #990000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      font-size: 10px;
+      font-weight: 600;
+      border-top: 1px solid #7d0000;
+      border-bottom: 1px solid #7d0000;
+    }
+    .nav-links { display: flex; gap: 18px; }
+    .nav-links a { color: #fff; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .search-box {
+      height: 19px;
+      width: 124px;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      padding: 0 6px;
+      font-size: 10px;
+    }
+    .lang { opacity: 0.95; color: #fff; }
+    .lang.active {
+      background: #fff;
+      color: #222;
+      padding: 2px 5px;
+      border-radius: 2px;
+      border: 1px solid #eee;
+    }
+
+    .panel {
+      background: #d9d9d9;
+      margin: 14px 34px 12px;
+      border-radius: 3px;
+      padding: 16px;
+      border: 1px solid #cecece;
+    }
+    .title {
+      text-align: center;
+      font-size: 20px;
+      color: #2b2b2b;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+    .title.hidden { display: none; }
+
+    .notice-box {
+      background: #f1ee1b;
+      border: 3px solid #b80f0f;
+      margin: 0 0 14px;
+      padding: 10px 12px;
+      box-shadow: inset 0 0 0 1px #ff9e9e;
+      text-align: center;
+    }
+    .notice-sinhala {
+      font-family: 'Iskoola Pota', 'Noto Sans Sinhala', serif;
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .notice-english {
+      font-size: 10px;
+      line-height: 1.3;
+      font-style: italic;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .notice-tamil {
+      font-family: 'Latha', 'Noto Sans Tamil', sans-serif;
+      font-size: 12px;
+      line-height: 1.3;
+      font-weight: 700;
+      display: block;
+    }
+
+    .form-row, .form-row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .form-row2 { grid-template-columns: 84px 1fr; }
+    select, input[type="text"] {
+      width: 100%;
+      height: 30px;
+      border: 1px solid #c8c8c8;
+      background: #f2f2f2;
+      color: #555;
+      font-size: 11px;
+      padding: 0 10px;
+    }
+    #searchType { background: #b2b2b2; color: #fff; border-color: #b2b2b2; }
+    .captcha-wrap { display: flex; justify-content: center; margin: 14px 0 12px; }
+    .captcha-box {
+      width: 170px;
+      height: 42px;
+      border: 1px solid #d2d2d2;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      font-size: 10px;
+      color: #555;
+    }
+    .captcha-box input { width: 18px; height: 18px; }
+    .cap-brand { font-size: 9px; color: #6e6e6e; line-height: 1.1; text-align: center; }
+
+    .btn-row { display: flex; justify-content: center; gap: 0; margin-bottom: 12px; }
+    .btn {
+      width: 177px;
+      height: 28px;
+      border: none;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-submit { background: #5c78e4; }
+    .btn-reset { background: #e9614f; }
+
+    .action-row { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+    .btn-outline {
+      border: 1px solid #a7d8d8;
+      color: #7dbcbc;
+      background: #f0f6f6;
+      height: 27px;
+      padding: 0 16px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .footer {
+      background: #2f2f2f;
+      color: #c9c9c9;
+      margin-top: 14px;
+      padding: 22px 34px 10px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 160px 1.2fr 1fr 1fr;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #444;
+    }
+    .footer h4 { color: #fff; margin-bottom: 8px; font-size: 36px; font-weight: 500; }
+    .footer p, .footer a {
+      color: #c9c9c9;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 7px;
+      font-size: 17px;
+    }
+    .f-logo {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+      margin: 0 auto;
+      display: block;
+    }
+    .footer-brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0 8px;
+      border-bottom: 1px solid #444;
+      margin-top: 6px;
+      margin-bottom: 2px;
+      font-size: 14px;
+      color: #d5d5d5;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand-group img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+    .footer-bottom {
+      text-align: center;
+      padding: 14px 0 7px;
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    .result-overlay {
+      display: none;
+      margin-top: 10px;
+      border: 1px solid #a8dde4;
+      background: #fff;
+    }
+    .result-overlay.active { display: block; }
+    .result-card {
+      width: 100%;
+      background: #fff;
+    }
+    .result-head {
+      height: 34px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid #f1f1f1;
+      text-align: center;
+      color: #333;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .result-head h3 {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .result-year-badge {
+      background: #333;
+      color: #fff;
+      border-radius: 10px;
+      padding: 0 6px;
+      font-size: 10px;
+      line-height: 16px;
+      height: 16px;
+    }
+    .close-btn {
+      border: none;
+      background: none;
+      font-size: 14px;
+      color: #67b4bf;
+      cursor: pointer;
+      position: absolute;
+      right: 8px;
+      top: 6px;
+      line-height: 1;
+    }
+    .result-body {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+    }
+    .left { border-right: 1px solid #efefef; padding: 12px 34px; }
+    .right { padding: 12px 28px; }
+    .row { display: flex; font-size: 12px; margin-bottom: 8px; }
+    .lbl { width: 130px; color: #333; font-weight: 600; }
+    .val { font-weight: 500; color: #222; }
+    .subject {
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      margin-bottom: 9px;
+      padding-bottom: 6px;
+      font-size: 12px;
+      color: #333;
+    }
+    .subject-name::before { content: "›"; margin-right: 7px; color: #666; font-weight: 700; }
+    .subject-grade { background: #eee; color: #333; min-width: 18px; text-align: center; font-size: 10px; padding: 1px 2px; }
+
+    @media (max-width: 1000px) {
+      .site-wrap { margin: 0; border: none; }
+      .header { border-bottom: 1px solid #d8d8d8; }
+      .nav-links { gap: 10px; font-size: 10px; }
+      .panel { margin: 12px; }
+      .title { font-size: 18px; }
+      .footer { padding: 16px 12px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer h4 { font-size: 21px; }
+      .footer p, .footer a { font-size: 14px; }
+      .result-overlay {
+        margin-top: 10px;
+        border-color: #b9dfe5;
+        background: #f3f3f3;
+      }
+      .result-head {
+        height: 30px;
+        background: #f3f3f3;
+        border-bottom: 1px solid #e1e1e1;
+      }
+      .result-head h3 {
+        font-size: 11px;
+        max-width: calc(100% - 24px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .close-btn { right: 6px; top: 6px; font-size: 12px; }
+      .result-body {
+        grid-template-columns: 1fr;
+        background: #fff;
+      }
+      .left, .right {
+        border-right: none;
+        padding: 10px 12px;
+      }
+      .left { border-bottom: 1px solid #ededed; }
+      .row {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 10px;
+        font-size: 11px;
+        text-align: left;
+      }
+      .lbl { width: 46%; font-weight: 600; color: #333; }
+      .val { width: 54%; font-weight: 500; color: #111; text-align: left; }
+      .subject {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        text-align: left;
+      }
+      .subject-name::before { margin-right: 5px; }
+      .subject-grade {
+        min-width: 18px;
+        font-size: 10px;
+        background: #ececec;
+      }
+    }
+    @media (min-width: 1280px) {
+      .panel { margin-left: 46px; margin-right: 46px; }
+      .footer { padding-left: 46px; padding-right: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-wrap">
+    <header class="header">
+      <img class="header-banner" src="assets/header-banner.png" alt="Department of Examinations, Sri Lanka" />
+    </header>
+
+    <nav class="nav">
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">School Exam Results</a>
+        <a href="#">Exam Calendar</a>
+        <a href="#">Certificates / Verification of Results</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="nav-right">
+        <span>Q</span>
+        <input class="search-box" type="text" placeholder="Search" />
+        <span class="lang">සිංහල</span>
+        <span class="lang">தமிழ்</span>
+        <span class="lang active">English</span>
+      </div>
+    </nav>
+
+    <main class="panel">
+      <div class="title" id="examTitle">FIND YOUR EXAM RESULTS HERE</div>
+
+      <div class="notice-box">
+        <span class="notice-sinhala">විභාග ප්‍රතිඵල ශ්‍රී ලංකා රජය සතු දේපළක් වන අතර, නිසි අවසරයකින් තොරව ප්‍රතිඵල ලබා ගැනීම, වෙබ් අඩවියක හෝ සමාජ මාධ්‍ය ජාලයක ප්‍රසිද්ධ කිරීම සපුරා තහනම් වන අතර, දඬුවම් ලැබිය හැකි වරදකි.</span>
+        <span class="notice-english">Examination results are the property of the Government of Sri Lanka, and copying, keeping, posting on a website and social media networks or otherwise publicizing the results which are not belong to the candidate without proper permission is strictly prohibited and is a punishable offence.</span>
+        <span class="notice-tamil">பரீட்சை பெறுபேறுகள் இலங்கை அரசாங்கத்தின் சொத்தாகும். பொருத்தமான அனுமதி இல்லாமல் வேட்பாளருக்குச் சொந்தமல்லாத பெறுபேறுகளைப் பெறுதல், சேமித்தல் அல்லது வெளியிடுதல் தண்டனைக்குரிய குற்றமாகும்.</span>
+      </div>
+
+      <div class="notice-box">
+        <span class="notice-sinhala">ඔබගේ සහතිකපත්‍රය මාර්ගගතව ලබා ගැනීම සඳහා www.doenets.lk වෙබ් අඩවිය වෙත පිවිස "Online Certificate (G.C.E (O/L) and G.C.E (A/L))" සේවාව භාවිතා කරන්න.</span>
+        <span class="notice-english">To obtain your certificate online, kindly visit the official website of the Department of Examinations via www.doenets.lk and then click on "Online Certificate (G.C.E. (O/L) and G.C.E. (A/L))".</span>
+        <span class="notice-tamil">உங்கள் சான்றிதழை இணையத்தில் பெற www.doenets.lk தளத்திற்குச் சென்று "Online Certificate (G.C.E. (O/L) and G.C.E. (A/L))" சேவையைத் தேர்ந்தெடுக்கவும்.</span>
+      </div>
+
+      <div class="form-row">
+        <select id="examSelect" onchange="updateTitle()">
+          <option value="">Select the Exam</option>
+          <option value="GCE_AL_AFTER">G.C.E. (A/L) EXAMINATION-(After Rescrutiny)</option>
+          <option value="GCE_AL">G.C.E. (A/L) EXAMINATION</option>
+          <option value="GCE_OL">G.C.E. (O/L) EXAMINATION</option>
+        </select>
+        <select id="yearSelect">
+          <option value="">Select the year</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+
+      <div class="form-row2">
+        <select id="searchType">
+          <option value="index">Index</option>
+          <option value="nic">NIC</option>
+        </select>
+        <input type="text" id="searchVal" placeholder="Search By ..." />
+      </div>
+
+      <div class="captcha-wrap">
+        <div class="captcha-box">
+          <input id="captcha" type="checkbox" />
+          <label for="captcha">I am human</label>
+          <div class="cap-brand">hCaptcha<br /><small>Privacy · Terms</small></div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-submit" onclick="submitForm()">Submit</button>
+        <button class="btn btn-reset" onclick="resetForm()">Reset</button>
+      </div>
+
+      <div class="result-overlay" id="resultOverlay">
+        <div class="result-card">
+          <div class="result-head">
+            <h3><span id="popupTitle">G.C.E. (A/L) EXAMINATION-(After Rescrutiny)</span><span class="result-year-badge" id="popupYear">2024</span></h3>
+            <button class="close-btn" onclick="closeResult()">&times;</button>
+          </div>
+          <div class="result-body">
+            <div class="left">
+              <div class="row"><span class="lbl">Examination</span><span class="val" id="rExam">—</span></div>
+              <div class="row"><span class="lbl">Year</span><span class="val" id="rYear">—</span></div>
+              <div class="row"><span class="lbl">Name</span><span class="val" id="rName">—</span></div>
+              <div class="row"><span class="lbl">Index Number</span><span class="val" id="rIndex">—</span></div>
+              <div class="row"><span class="lbl">NIC Number</span><span class="val" id="rNIC">—</span></div>
+              <div class="row"><span class="lbl">District Rank</span><span class="val" id="rDistrict">—</span></div>
+              <div class="row"><span class="lbl">Island Rank</span><span class="val" id="rIsland">—</span></div>
+              <div class="row"><span class="lbl">Z-Score</span><span class="val" id="rZScore">—</span></div>
+              <div class="row"><span class="lbl">Subject Stream</span><span class="val" id="rStream">—</span></div>
+            </div>
+            <div class="right" id="subjectList"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="btn-outline" onclick="window.print()">Print</button>
+        <button class="btn-outline">Other Examination Results</button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-top">
+        <div><img class="f-logo" src="assets/sl-logo.png" alt="Government Logo" /></div>
+        <div>
+          <h4>Contact Us</h4>
+          <p>Department of Examinations Sri Lanka, Pelawatta, Battaramulla, Sri Lanka.</p>
+          <p>E-Mail : exams@doenets.lk</p>
+          <p>Hotline : 1911</p>
+          <p>Telephone Number : +94 11 2786200, +94 11 2784203-4</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="#">School Exam Results</a>
+          <a href="#">Exam Calendar</a>
+          <a href="#">Services</a>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="#">Downloads</a>
+          <a href="#">Gallery</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-brand">
+        <div class="brand-group">
+          <span>Developed By</span>
+          <img src="assets/inova-logo.png" alt="INOVA" />
+        </div>
+        <div class="brand-group">
+          <span>Powered By</span>
+          <img src="assets/dialog-logo.png" alt="Dialog" />
+          <img src="assets/headstart-logo.png" alt="Headstart" />
+        </div>
+      </div>
+      <div class="footer-bottom">Copyright © 2022 - Department of Examinations, Sri Lanka. All Rights Reserved</div>
+    </footer>
+  </div>
+
+  <script>
+    const sampleData = {
+      "200431403269_GCE_AL_AFTER_2024": {
+        exam: "G.C.E. (A/L) EXAMINATION-(After Rescrutiny)",
+        year: "2024",
+        name: "MOHAMATHU SAMIL MOHAMATHU SHAKKIR",
+        index: "3094740",
+        nic: "200431403269",
+        district: "-",
+        island: "-",
+        zscore: "-",
+        stream: "BIOLOGICAL SCIENCE",
+        subjects: [
+          { name: "PHYSICS", grade: "F" },
+          { name: "CHEMISTRY", grade: "F" },
+          { name: "BIOLOGY", grade: "F" },
+          { name: "COMMON GENERAL TEST", grade: "040" },
+          { name: "GENERAL ENGLISH", grade: "S" }
+        ]
+      },
+      "3094740_GCE_AL_AFTER_2024": {
+        exam: "G.C.E. (A/L) EXAMINATION-(After Rescrutiny)",
+        year: "2024",
+        name: "MOHAMATHU SAMIL MOHAMATHU SHAKKIR",
+        index: "3094740",
+        nic: "200431403269",
+        district: "-",
+        island: "-",
+        zscore: "-",
+        stream: "BIOLOGICAL SCIENCE",
+        subjects: [
+          { name: "PHYSICS", grade: "F" },
+          { name: "CHEMISTRY", grade: "F" },
+          { name: "BIOLOGY", grade: "F" },
+          { name: "COMMON GENERAL TEST", grade: "040" },
+          { name: "GENERAL ENGLISH", grade: "S" }
+        ]
+      },
+      "6331912_GCE_AL_AFTER_2025": {
+        exam: "G.C.E. (A/L) EXAMINATION",
+        year: "2025",
+        name: "MOHAMATHU SAMIL MOHAMATHU SHAKKIR",
+        index: "6331912",
+        nic: "200431403269",
+        district: "167",
+        island: "3264",
+        zscore: "0.9652",
+        stream: "BIOLOGICAL SCIENCE",
+        subjects: [
+          { name: "PHYSICS", grade: "C" },
+          { name: "CHEMISTRY", grade: "B" },
+          { name: "BIOLOGY", grade: "C" },
+          { name: "COMMON GENERAL TEST", grade: "040" },
+          { name: "GENERAL ENGLISH", grade: "S" }
+        ]
+      },
+      "200431403269_GCE_AL_AFTER_2025": {
+        exam: "G.C.E. (A/L) EXAMINATION",
+        year: "2025",
+        name: "MOHAMATHU SAMIL MOHAMATHU SHAKKIR",
+        index: "6331912",
+        nic: "200431403269",
+        district: "167",
+        island: "3264",
+        zscore: "0.9652",
+        stream: "BIOLOGICAL SCIENCE",
+        subjects: [
+          { name: "PHYSICS", grade: "C" },
+          { name: "CHEMISTRY", grade: "B" },
+          { name: "BIOLOGY", grade: "C" },
+          { name: "COMMON GENERAL TEST", grade: "040" },
+          { name: "GENERAL ENGLISH", grade: "S" }
+        ]
+      }
+    };
+
+    function updateTitle() {
+      const exam = document.getElementById("examSelect").value;
+      const title = document.getElementById("examTitle");
+      if (!exam) {
+        title.textContent = "FIND YOUR EXAM RESULTS HERE";
+        title.classList.add("hidden");
+        return;
+      }
+      title.classList.remove("hidden");
+      const selectedText = document.getElementById("examSelect").selectedOptions[0].textContent;
+      title.textContent = selectedText;
+    }
+
+    function submitForm() {
+      const exam = document.getElementById("examSelect").value;
+      const year = document.getElementById("yearSelect").value;
+      const type = document.getElementById("searchType").value;
+      const val = document.getElementById("searchVal").value.trim();
+      const cap = document.getElementById("captcha").checked;
+
+      if (!exam) return alert("Please select the Exam.");
+      if (!year) return alert("Please select the Year.");
+      if (!val) return alert("Please enter your " + (type === "nic" ? "NIC" : "Index") + " number.");
+      if (!cap) return alert("Please check the \"I am human\" checkbox.");
+
+      const data = sampleData[val + "_" + exam + "_" + year];
+      if (!data) return alert("No results found for the provided details.");
+
+      document.getElementById("popupTitle").textContent = data.exam;
+      document.getElementById("popupYear").textContent = data.year;
+      document.getElementById("rExam").textContent = data.exam;
+      document.getElementById("rYear").textContent = data.year;
+      document.getElementById("rName").textContent = data.name;
+      document.getElementById("rIndex").textContent = data.index;
+      document.getElementById("rNIC").textContent = data.nic;
+      document.getElementById("rDistrict").textContent = data.district;
+      document.getElementById("rIsland").textContent = data.island;
+      document.getElementById("rZScore").textContent = data.zscore;
+      document.getElementById("rStream").textContent = data.stream;
+
+      const subjectList = document.getElementById("subjectList");
+      subjectList.innerHTML = "";
+      data.subjects.forEach((s) => {
+        const row = document.createElement("div");
+        row.className = "subject";
+        row.innerHTML = "<span class=\"subject-name\">" + s.name + "</span><span class=\"subject-grade\">" + s.grade + "</span>";
+        subjectList.appendChild(row);
+      });
+
+      document.getElementById("resultOverlay").classList.add("active");
+    }
+
+    function resetForm() {
+      document.getElementById("examSelect").value = "";
+      document.getElementById("yearSelect").value = "";
+      document.getElementById("searchType").value = "index";
+      document.getElementById("searchVal").value = "";
+      document.getElementById("captcha").checked = false;
+      document.getElementById("resultOverlay").classList.remove("active");
+      updateTitle();
+    }
+
+    function closeResult() {
+      document.getElementById("resultOverlay").classList.remove("active");
+    }
+
+    updateTitle();
+  </script>
+</body>
+</html>
